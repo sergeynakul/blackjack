@@ -2,6 +2,10 @@ class Game
   attr_reader :player, :dealer, :deck, :player_bank, :dealer_bank
   attr_accessor :all_bank
 
+  TWO_CARDS = 2
+  THREE_CARDS = 3
+  ENOUGH = 17
+
   def initialize(player, dealer)
     @player = player
     @dealer = dealer

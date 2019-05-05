@@ -33,7 +33,7 @@ class Interface
     when '1'
       dealer_go
     when '2'
-      @game.player.cards << @game.deck.cards.shift if @game.player.cards.count == 2
+      @game.player.cards << @game.deck.cards.shift if @game.player.cards.count == Game::TWO_CARDS
       open_cards if three_cards?
       dealer_go
     when '3'
@@ -48,26 +48,26 @@ class Interface
 
   def show_card_game
     puts 'Твои карты'
-    @game.player.show
+    @game.player.cards.each { |card| puts "#{card.rank}#{card.suit}" }
     puts 'Карты диллера'
-    @game.dealer.show_hidden
+    @game.dealer.cards.count { puts '*' }
   end
 
   def three_cards?
-    @game.player.cards.count == 3 && @game.dealer.cards.count == 3
+    @game.player.cards.count == Game::THREE_CARDS && @game.dealer.cards.count == Game::THREE_CARDS
   end
 
   def dealer_go
-    @game.dealer.cards << @game.deck.cards.shift if @game.dealer.value < 17 && @game.dealer.cards.count == 2
+    @game.dealer.cards << @game.deck.cards.shift if @game.dealer.value < Game::ENOUGH && @game.dealer.cards.count == Game::TWO_CARDS
     open_cards if three_cards?
     menu
   end
 
   def open_cards
     puts 'Твои карты'
-    @game.player.show
+    @game.player.cards.each { |card| puts "#{card.rank}#{card.suit}" }
     puts 'Карты Диллера'
-    @game.dealer.show
+    @game.dealer.cards.each { |card| puts "#{card.rank}#{card.suit}" }
     puts "Сумма очков: твои - #{@game.player.value}, диллера - #{@game.dealer.value}"
     who_win?
   end
@@ -84,7 +84,7 @@ class Interface
   end
 
   def continue
-    puts 'Для продолжения введите - 1, для выхода - 0'
+    puts 'Для продолжения введите - 1, для выхода - любой символ'
     if gets.chomp == '1'
       run
     else
