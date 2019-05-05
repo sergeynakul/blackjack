@@ -14,6 +14,7 @@ class Interface
   end
 
   def run
+    system 'clear'
     @game.round
     menu
   end

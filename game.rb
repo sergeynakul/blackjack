@@ -8,8 +8,9 @@ class Game
   end
 
   def round
-    @player_bank = 100
-    @dealer_bank = 100
+    @player_bank ||= 100
+    @dealer_bank ||= 100
+    check_minus
     @all_bank = 0
     @player.cards = []
     @dealer.cards = []
@@ -52,5 +53,10 @@ class Game
 
   def dealer_win
     @dealer_bank += @all_bank
+  end
+
+  def check_minus
+    @player_bank = 100 if @player_bank <= 0
+    @dealer_bank = 100 if @dealer_bank <= 0
   end
 end
