@@ -10,4 +10,8 @@ class Card
     return @rank if @rank.is_a?(Integer)
     return 10 if @rank.is_a?(String)
   end
+
+  def ace?
+    @rank != 'A'
+  end
 end

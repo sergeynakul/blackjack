@@ -32,13 +32,13 @@ class Interface
     case choice
     when '1'
       @game.dealer_go
-      open_cards if @game.three_cards?
+      open_cards if @game.end_round?
       menu
     when '2'
       @game.player_go
-      open_cards if @game.three_cards?
+      open_cards if @game.end_round?
       @game.dealer_go
-      open_cards if @game.three_cards?
+      open_cards if @game.end_round?
       menu
     when '3'
       open_cards

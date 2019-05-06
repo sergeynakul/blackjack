@@ -75,7 +75,7 @@ class Game
     @player.cards << @deck.cards.shift if @player.cards.count == TWO_CARDS
   end
 
-  def three_cards?
+  def end_round?
     @player.cards.count == THREE_CARDS && @dealer.cards.count == THREE_CARDS
   end
 end

@@ -7,7 +7,7 @@ class User
 
   def value
     @cards.reduce(0) do |memo, card|
-      memo + if card.rank != 'A'
+      memo + if card.ace?
                card.value
              else
                memo <= 10 ? 11 : 1
