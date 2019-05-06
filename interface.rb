@@ -31,11 +31,15 @@ class Interface
     choice = gets.chomp
     case choice
     when '1'
-      dealer_go
+      @game.dealer_go
+      open_cards if @game.three_cards?
+      menu
     when '2'
-      @game.player.cards << @game.deck.cards.shift if @game.player.cards.count == Game::TWO_CARDS
-      open_cards if three_cards?
-      dealer_go
+      @game.player_go
+      open_cards if @game.three_cards?
+      @game.dealer_go
+      open_cards if @game.three_cards?
+      menu
     when '3'
       open_cards
     end
@@ -51,16 +55,6 @@ class Interface
     @game.player.cards.each { |card| puts "#{card.rank}#{card.suit}" }
     puts 'Карты диллера'
     @game.dealer.cards.count { puts '*' }
-  end
-
-  def three_cards?
-    @game.player.cards.count == Game::THREE_CARDS && @game.dealer.cards.count == Game::THREE_CARDS
-  end
-
-  def dealer_go
-    @game.dealer.cards << @game.deck.cards.shift if @game.dealer.value < Game::ENOUGH && @game.dealer.cards.count == Game::TWO_CARDS
-    open_cards if three_cards?
-    menu
   end
 
   def open_cards

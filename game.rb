@@ -63,4 +63,16 @@ class Game
     @player_bank = 100 if @player_bank <= 0
     @dealer_bank = 100 if @dealer_bank <= 0
   end
+
+  def dealer_go
+    @dealer.cards << @deck.cards.shift if @dealer.value < ENOUGH && @dealer.cards.count == TWO_CARDS
+  end
+
+  def player_go
+    @player.cards << @deck.cards.shift if @player.cards.count == TWO_CARDS
+  end
+
+  def three_cards?
+    @player.cards.count == THREE_CARDS && @dealer.cards.count == THREE_CARDS
+  end
 end
