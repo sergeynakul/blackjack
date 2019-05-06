@@ -5,6 +5,9 @@ class Game
   TWO_CARDS = 2
   THREE_CARDS = 3
   ENOUGH = 17
+  INITIAL_PLAYER_BALANCE = 100
+  ROUND_RATE = 10
+  PERFECT = 21
 
   def initialize(player, dealer)
     @player = player
@@ -12,8 +15,8 @@ class Game
   end
 
   def round
-    @player_bank ||= 100
-    @dealer_bank ||= 100
+    @player_bank ||= INITIAL_PLAYER_BALANCE
+    @dealer_bank ||= INITIAL_PLAYER_BALANCE
     check_minus
     @all_bank = 0
     @player.cards = []
@@ -24,9 +27,9 @@ class Game
   end
 
   def bet
-    @player_bank -= 10
-    @dealer_bank -= 10
-    @all_bank += 20
+    @player_bank -= ROUND_RATE
+    @dealer_bank -= ROUND_RATE
+    @all_bank += ROUND_RATE * 2
   end
 
   def deal_card
@@ -35,7 +38,7 @@ class Game
   end
 
   def draw?
-    draw_bank if (@player.value == @dealer.value) || (@player.value > 21 && @dealer.value > 21)
+    draw_bank if (@player.value == @dealer.value) || (@player.value > PERFECT && @dealer.value > PERFECT)
   end
 
   def draw_bank
@@ -44,7 +47,7 @@ class Game
   end
 
   def player_win?
-    player_win if (@player.value <= 21 && @player.value > @dealer.value) || (@player.value <= 21 && @dealer.value > 21)
+    player_win if (@player.value <= PERFECT && @player.value > @dealer.value) || (@player.value <= PERFECT && @dealer.value > PERFECT)
   end
 
   def player_win
@@ -52,7 +55,7 @@ class Game
   end
 
   def dealer_win?
-    dealer_win if (@dealer.value <= 21 && @dealer.value > @player.value) || (@dealer.value <= 21 && @player.value > 21)
+    dealer_win if (@dealer.value <= PERFECT && @dealer.value > @player.value) || (@dealer.value <= PERFECT && @player.value > PERFECT)
   end
 
   def dealer_win
@@ -60,8 +63,8 @@ class Game
   end
 
   def check_minus
-    @player_bank = 100 if @player_bank <= 0
-    @dealer_bank = 100 if @dealer_bank <= 0
+    @player_bank = INITIAL_PLAYER_BALANCE if @player_bank <= 0
+    @dealer_bank = INITIAL_PLAYER_BALANCE if @dealer_bank <= 0
   end
 
   def dealer_go
