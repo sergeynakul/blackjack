@@ -1,6 +1,9 @@
 class Card
   attr_reader :rank, :suit
 
+  RANKS = [*(2..10), 'J', 'Q', 'K', 'A'].freeze
+  SUITS = ['♣', '♥', '♠', '♦'].freeze
+
   def initialize(rank, suit)
     @rank = rank
     @suit = suit
@@ -11,7 +14,7 @@ class Card
     return 10 if @rank.is_a?(String)
   end
 
-  def ace?
+  def not_ace?
     @rank != 'A'
   end
 end

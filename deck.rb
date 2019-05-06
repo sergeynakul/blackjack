@@ -1,14 +1,11 @@
 class Deck
   attr_accessor :cards
 
-  RANKS = [*(2..10), 'J', 'Q', 'K', 'A'].freeze
-  SUITS = ['♣', '♥', '♠', '♦'].freeze
-
   def initialize
     @cards = []
 
-    RANKS.each do |rank|
-      SUITS.each do |suit|
+    Card::RANKS.each do |rank|
+      Card::SUITS.each do |suit|
         @cards << Card.new(rank, suit)
       end
     end
